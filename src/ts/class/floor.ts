@@ -4,20 +4,20 @@ import { pxToB2d, b2dToPx } from "../helpers/coordConversion.js";
 
 export default class Floor {
     b2body: typeof b2d.b2Body;
-    states = {
-        moveLeft: false,
-        moveRight: false,
-        grounded: false,
-    };
-    width = 1000;
-    height = 20;
+
+    width: number;
+    height: number;
     x: number;
     y: number;
     init: boolean;
 
-    constructor() {
-        this.x = 0;
-        this.y = 310;
+    type = 'wall';
+
+    constructor(x, y, w, h) {
+        this.x = x + w / 2;
+        this.y = y;
+        this.width = w;
+        this.height = h;
         this.addB2Body();
     }
 
@@ -25,7 +25,7 @@ export default class Floor {
         if (!this.init) return;
         let pos = this.b2body.GetPosition();
         // console.log(pos);
-        let pxPos = b2dToPx(pos.x,pos.y)
+        let pxPos = b2dToPx(pos.x, pos.y)
         this.x = pxPos[0];
         this.y = pxPos[1];
     }
@@ -57,17 +57,22 @@ export default class Floor {
         this.init = true;
     }
 
-    drawB2BB(ctx: CanvasRenderingContext2D) {
+    drawB2BB(ctx: CanvasRenderingContext2D, camera) {
         if (!this.init) return;
         ctx.strokeStyle = 'magenta';
-        ctx.strokeRect(this.x-this.width/2, this.y-this.height/2, this.width, this.height);
+        ctx.strokeRect(this.x - this.width / 2 - camera.x, this.y - this.height / 2 - camera.y, this.width, this.height);
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx: CanvasRenderingContext2D, camera) {
         // ctx.drawImage(this.sprite.cnv,this.x,this.y);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(this.x - this.width / 2 - camera.x, this.y - this.height / 2 - camera.y, this.width, this.height);
     }
 
     collided() {
 
+    }
+
+    endCollided(fx) {
     }
 }

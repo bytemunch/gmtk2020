@@ -1,5 +1,6 @@
 import AnimationPart from "./animationPart.js";
 import AnimEye from "./eye.js";
+import { DEBUG } from "../main.js";
 
 export default class AnimHead extends AnimationPart {
     eye: AnimEye;
@@ -15,9 +16,11 @@ export default class AnimHead extends AnimationPart {
         this.ctx.translate(this.cnv.width / 2, this.cnv.height / 2);
         this.ctx.fillStyle = 'black';
         this.ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        this.ctx.strokeStyle = 'white';
+        this.ctx.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
         this.ctx.drawImage(this.eye.cnv, this.width / 6, -this.height / 4);
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-        this.drawBB();
+        if (DEBUG.BOUNDING_BOXES) this.drawBB();
     }
 }

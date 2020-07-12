@@ -24,7 +24,13 @@ declare module Box2D {
         b2DistanceJointDef: b2DistanceJointDef,
         b2FixtureDef: b2FixtureDef,
         b2RopeJointDef:b2RopeJointDef,
-        b2ChainShape:b2ChainShape
+        b2ChainShape:b2ChainShape,
+        JSContactFilter:JSContactFilter
+    }
+
+    interface JSContactFilter {
+        new():JSContactFilter;
+        ShouldCollide(f1:b2Fixture,f2:b2Fixture):boolean
     }
 
     interface wrapPointer {
@@ -49,7 +55,7 @@ declare module Box2D {
     interface JSContactListener {
         PreSolve: () => void;
         PostSolve: () => void;
-        EndContact: () => void;
+        EndContact: (contactPtr) => void;
         BeginContact: (contactPtr: any) => void;
         new(): JSContactListener
     }
@@ -159,6 +165,8 @@ declare module Box2D {
     }
 
     interface b2Fixture {
+        SetFilterData(filter: any);
+        GetFilterData();
         GetBody();
         _parent: any; // hacky shit time wo0o0o0oo0
         SetUserData(data: any);
@@ -167,6 +175,7 @@ declare module Box2D {
     }
 
     interface b2FixtureDef {
+        set_isSensor(arg0: boolean);
         new(): b2FixtureDef;
         set_userData(data: any);
         set_restitution(r: number);

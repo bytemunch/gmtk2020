@@ -16,8 +16,8 @@ export default class AnimPlayer extends AnimationPart {
 
     draw() {
         this.ctx.translate(this.cnv.width / 2, this.cnv.height);
-        this.ctx.drawImage(this.head.cnv, -this.head.cnv.width / 2, -this.body.cnv.height * .9 - this.head.cnv.height);
         this.ctx.drawImage(this.body.cnv, -this.body.cnv.width / 2, -this.body.cnv.height);
+        this.ctx.drawImage(this.head.cnv, -this.head.cnv.width / 2, -this.body.cnv.height * .9 - this.head.cnv.height);
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
         if (DEBUG.BOUNDING_BOXES) this.drawBB();
     }

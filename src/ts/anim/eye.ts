@@ -5,7 +5,7 @@ export default class AnimEye extends AnimationPart {
     pupilY: number = 6;
     frame: number = 0;
     _state: string = 'crazed';
-    lastState:string = 'neutral';
+    lastState:string = 'crazed';
 
     constructor(w,h) {
         super(w,h);
